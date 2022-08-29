@@ -3,16 +3,16 @@
     "main.py": [
       {
         "id": "3e8bff61-71a3-4ce8-a103-190ca262a9a9",
-        "line": 7,
-        "version": 594,
-        "index": 74
+        "line": 91,
+        "version": 2344,
+        "index": 2988
       }
     ],
     "settings.py": [
       {
         "id": "b72a88db-e050-4ce4-a075-4252a75a68fe",
         "line": 1,
-        "version": 766,
+        "version": 1036,
         "index": 0
       }
     ]
