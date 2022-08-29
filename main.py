@@ -3,16 +3,18 @@ from sys import exit
 from settings import *
 from button import *
 from spritesheet import *
+from tile import *
+from level import *
 
 pygame.init()
+level1 = Level(level1_map, screen)
 
 def title_screen():
     pygame.display.set_caption("Title of Game")
-
     while True:
         clock.tick(FPS)
         screen.blit(start_background, (0, 0))
-
+       
         menu_mouse_pos = pygame.mouse.get_pos()
 
         menu_text = main_font.render("Title of Game", True, "White")
@@ -56,9 +58,10 @@ def title_screen():
     while running:
         clock.tick(FPS)
         screen.blit(play_background_test, (0, 0))
-
+        
+        level.run()
+        
         start_mouse_pos = pygame.mouse.get_pos()
-
         start_text = main_font.render("Welcome to the Game!", True, "White")
         start_rect = start_text.get_rect(center=(screen_length // 2, 100))
 
@@ -118,12 +121,25 @@ def load_level1():
         pygame.display.update()
 
 def play_level1():
-    level1 = True
-    while level1:
+    first_level = True
+    while first_level:
         clock.tick(FPS)
 
-        screen.blit(play_background_level1, (0, 0))
-        screen.blit(player_idle0, player_rect)
+        screen.fill("black")
+
+        # WIP
+        # screen.blit(play_background_level1, (0, 0))
+        # screen.blit(player_idle0, player_rect)
+        # Collisions/Gravity WIP
+        # index = player.collidelist(platform_list)
+        # if index >= 0:
+        #     fall_size = 0
+        #     jumping = False
+        # else: 
+        #     jumping = True
+        #     fall_size += gravity 
+         
+        level1.run()
        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -131,5 +147,5 @@ def play_level1():
                 exit()
 
         pygame.display.update()
-
+        
 title_screen()

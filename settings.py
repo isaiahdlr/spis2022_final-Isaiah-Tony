@@ -2,9 +2,24 @@ import pygame
 from spritesheet import *
 pygame.init()
 
+# Map Settings
+level1_map = [
+'                            ',
+'                            ',
+'                            ',
+'     XXX       XXX          ',
+' XX    XXX       XXX        ',
+' XXX             XXXX       ',
+' XXX    P                   ',
+' XX    XXX                  ',
+' XXXXXXXXX     XXXXXXXXXXXX ',
+' XX    XXX       XX    ']
+
+tile_size = 64
+
 # Screen Window Size (16:9)
-screen_length = 1024
-screen_height = 576
+screen_length = 1200
+screen_height = len(level1_map) * tile_size
 
 window_size = (screen_length, screen_height)
 screen = pygame.display.set_mode(window_size)
@@ -34,3 +49,4 @@ player_rect = player_idle0.get_rect(topleft = (100, 200))
 # Text Settings
 main_font = pygame.font.SysFont('cambria', 50)
 test_text_surface = main_font.render('Game Text Test', False, 'Black')
+
