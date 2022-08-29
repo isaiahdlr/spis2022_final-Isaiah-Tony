@@ -5,15 +5,15 @@ pygame.init()
 # Map Settings
 level1_map = [
 '                            ',
-'                            ',
-'                            ',
-'     XXX       XXX          ',
-' XX    XXX       XXX        ',
-' XXX             XXXX       ',
-' XXX    P                   ',
-' XX    XXX                  ',
-' XXXXXXXXX     XXXXXXXXXXXX ',
-' XX    XXX       XX    ']
+'       XXX                     ',
+'      XX  X                ',
+'      XX  X         XXX          ',
+' XX   XX X     XXX        ',
+'XXX    XXX     XXXXXX    XXXXXXXX       ',
+'XXX    X X                                  XX        XX   ',
+' XX  P              XXXXXXXXXX            XXXXX           ',
+' XXXXXXXXX     XXXXXXXXXXXXXXXXX     XXXXXXXXXXXXXXXXXXX    ',
+' XX    XXX       XXXXXXXXX                 XXXX             ']
 
 tile_size = 64
 
