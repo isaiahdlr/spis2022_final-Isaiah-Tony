@@ -1,0 +1,5 @@
+Todo:
+Make Jumping conditional on touching the ground
+Resize player assets to create smaller hitbox
+instead of coins have ameegus collectibles
+add a sprinting mechanic
