@@ -3,7 +3,6 @@ level_1 = {
     '"coins"': "levels/1/level1.__coins_.csv",
     'decorations': "levels/1/level1.decorations.csv",
     'enemies': "levels/1/level1._enemies.csv",
-    'grass': "levels/1/level1._grass.csv",
     'player': "levels/1/level1._player.csv",
     'constraints': "levels/1/level1._constraints.csv",
 }

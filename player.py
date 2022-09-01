@@ -1,5 +1,7 @@
 import pygame
 from os import *
+from settings import screen_height
+# from main import first_level
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
@@ -32,7 +34,7 @@ class Player(pygame.sprite.Sprite):
             for image in image_files:
                 fuller_path = path + "/" + str(image)
                 image_surface = pygame.image.load(fuller_path).convert_alpha()
-                image_surface = pygame.transform.scale(image_surface, (96,96))
+                image_surface = pygame.transform.scale(image_surface, (48,48))
                 animation_list.append(image_surface)
                                
         return animation_list     
@@ -92,7 +94,13 @@ class Player(pygame.sprite.Sprite):
                 self.status = 'running'
             else:
                 self.status = 'idle'
-    
+
+    # def lose(self):
+    #     if self.rect.y > screen_height:
+    #         first_level = False
+    #     else:
+    #         pass
+
     def get_input(self):
 
         for event in pygame.event.get():  
@@ -116,7 +124,8 @@ class Player(pygame.sprite.Sprite):
                 pygame.quit()
                 exit()
                     
-    def update(self): 
+    def update(self):
+        # self.lose() 
         self.get_input()
         self.get_status()
         self.animate()

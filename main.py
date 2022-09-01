@@ -3,13 +3,12 @@ from sys import exit
 from settings import *
 from button import *
 from tile import *
-from level import *
 from game_data import level_1
+from level import Level
 
 pygame.init()
 
 level = Level(level_1, screen)
-
 
 def title_screen():
     pygame.display.set_caption("Very Epic Game")
@@ -55,38 +54,37 @@ def title_screen():
 
         pygame.display.update()
 
-# def play_test():
-    running = True
-    while running:
+# def lose_level1():
+    lose_level1 = True
+    while lose_level1:
         clock.tick(FPS)
-        screen.blit(play_background_test, (0, 0))
-        
-        level.run()
-        
-        start_mouse_pos = pygame.mouse.get_pos()
-        start_text = main_font.render("Welcome to the Game!", True, "White")
-        start_rect = start_text.get_rect(center=(screen_length // 2, 100))
+        screen.fill('black')
 
-        start_back = Button(image=pygame.image.load('assets/button.png'),
+        start_mouse_pos = pygame.mouse.get_pos()
+
+        lose_text = main_font.render("You Lose!", True, "White")
+        lose_rect = lose_text.get_rect(center=(screen_length // 2, 100))  
+
+        play_again = Button(image=pygame.image.load('assets/button.png'),
                             pos=(screen_length // 2, 275),
-                            text_input="Back to Menu",
+                            text_input="Retry",
                             font=main_font,
                             base_color="White",
                             hovering_color="Red")
 
-        start_back.checkForHovering(start_mouse_pos)
-        start_back.update(screen)
+        play_again.checkForHovering(start_mouse_pos)
+        play_again.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if start_back.checkForInput(start_mouse_pos):
-                    title_screen()
-                    running = False
+                if play_again.checkForInput(start_mouse_pos):
+                    play_level1()
+                    lose_level1 = False
                     
-        screen.blit(start_text, start_rect)
+        screen.blit(lose_text, lose_rect)
         pygame.display.update()
 
 def load_level1():
@@ -127,7 +125,7 @@ def play_level1():
     while first_level:
         clock.tick(FPS)
 
-        screen.fill("black")
+        screen.fill("Grey")
 
         level.run()
        
@@ -137,6 +135,8 @@ def play_level1():
                 exit()
 
         pygame.display.update()
+    
+    # lose_level1()
 
 
      

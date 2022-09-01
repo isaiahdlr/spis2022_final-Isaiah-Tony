@@ -12,10 +12,26 @@ class Level:
         terrain_layout = import_csv_layout(level_data['terrain'])
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
 
-        # # grass
-        # grass_layout = import_csv_layout(level_data['grass'])
-        # self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
-      
+        # coins
+        coin_layout = import_csv_layout(level_data["coins"])
+        self.coin_sprites = self.create_tile_group(coin_layout, 'coins')
+
+        # Player Flag Win
+        flag_x = 550
+        flag_y = 350
+        flag_width = 50
+        flag_height = 75
+        flag_dimensions = (flag_width, flag_height)
+        flag = pygame.Rect(flag_x, flag_y, flag_width, flag_height)
+        
+       
+        flag_sprite = pygame.image.load(os.path.join("assets", "flag.png")).convert()
+        flag_sprite = pygame.transfrom.scale(flag_sprite, flag_dimensions)
+
+        # enemies
+        enemy_layout = import_csv_layout(level_data['enemies'])
+        self.enemy_sprites = self.create_tile_group(enemy_layout, 'enemies')
+        
         self.display_surface = surface
         self.world_shift = 0
         self.current_x = 0
@@ -25,7 +41,7 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
-        
+            
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -42,16 +58,14 @@ class Level:
                         tile_surface = terrain_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
 
-                    # if type == 'grass' and 4 >= int(val) >= 2:
-                    #     grass_tile_list = import_cut_graphics("assets/backgrounds/oak_woods_v1.0/decorations/grass_1.png")
-                    #     tile_surface = grass_tile_list[int(val)]
-                    #     sprite = StaticTile(tile_size, x, y, tile_surface)
-
-                    # if type == 'coins':
-                    #     sprite = AnimatedTile(tile_size,x,y,"assets/backgrounds/oak_wood_v1.0")
-
+                    if type == 'coins':
+                        sprite = AnimatedTile(tile_size,x,y,"assets/coin")
+                  
+                    if type == 'enemies':
+                        sprite = AnimatedTile(tile_size,x,y,"assets/enemies/mushroom/idle")
+                        
                     sprite_group.add(sprite)
-    
+                    
                 elif int(val) > 315:
                     print(val)
                     pass
@@ -63,15 +77,14 @@ class Level:
             for col_index, val in enumerate(row):
                 y = col_index * tile_size
                 x = row_index * tile_size
-                if val == '66':
+                if val == '7':
                     print('player goes here')
                     sprite = Player((x,y), self.display_surface)
                     self.player.add(sprite)
-                if val == '258': 
+                if val == '8': 
                     print('finish line goes here')
-                    # flag_surface = pygame.image.load('assets/flag.png').convert_alpha
-                    # sprite = StaticTile(tile_size,x,y,flag_surface)
-                    # self.goal.add(sprite)
+                    flag_surface = pygame.image.load('assets/start_end/flag.png').convert_alpha
+                    sprite = StaticTile(tile_size,x,y,flag_surface)
 
     def scroll_x(self):
         player = self.player.sprite
@@ -132,19 +145,19 @@ class Level:
         # level tiling
         self.terrain_sprites.update(self.world_shift)
         self.terrain_sprites.draw(self.display_surface)
+
+        # coins
+        self.coin_sprites.update(self.world_shift)
+        self.coin_sprites.draw(self.display_surface)
+
+        # enemies
+        self.enemy_sprites.update(self.world_shift)
+        self.enemy_sprites.draw(self.display_surface)
         
-        # # grass 
-        # self.grass_sprites.update(self.world_shift)
-        # self.grass_sprites.draw(self.display_surface)
-
-        # # coins
-        # self.coin_sprites.update(self.world_shift)
-        # self.coin_sprites.draw(self.display_surface)
-
         # player mechanics WIP
         self.scroll_x()
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.update()
         self.player.draw(self.display_surface)
-        ## goal
+
