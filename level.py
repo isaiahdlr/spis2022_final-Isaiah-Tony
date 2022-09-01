@@ -17,24 +17,18 @@ class Level:
         coin_layout = import_csv_layout(level_data["coins"])
         self.coin_sprites = self.create_tile_group(coin_layout, 'coins')
 
-        # Player Flag Win
-        flag_x = 550
-        flag_y = 350
-        flag_width = 50
-        flag_height = 75
-        flag_dimensions = (flag_width, flag_height)
-        flag = pygame.Rect(flag_x, flag_y, flag_width, flag_height)
-        
-       
-            
-       
-        flag_sprite = pygame.image.load(os.path.join("assets", "flag.png")).convert()
-        flag_sprite = pygame.transfrom.scale(flag_sprite, flag_dimensions)
+        # decorations
+        decoration_layout = import_csv_layout(level_data['decorations'])
+        self.decoration_sprites = self.create_tile_group(decoration_layout, 'decorations')
+
+        # constraints
+        constraint_layout = import_csv_layout(level_data['constraints'])
+        self.constraint_sprites = self.create_tile_group(constraint_layout,'constraints')
 
         # enemies
         enemy_layout = import_csv_layout(level_data['enemies'])
         self.enemy_sprites = self.create_tile_group(enemy_layout, 'enemies')
-        
+
         self.display_surface = surface
         self.world_shift = 0
         self.current_x = 0
@@ -42,12 +36,14 @@ class Level:
         # player setup
         player_layout = import_csv_layout(level_data['player'])
         self.player = pygame.sprite.GroupSingle()
-        self.goal = pygame.sprite.GroupSingle()
+        self.flag = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
-    
-    def player_win(self):
-        win_condition = self.player.colliderect(flag)
-        if win_condition > 0:   
+        
+        # enemy movement constraints
+    def enemy_collision_reverse(self):
+        for enemy in self.enemy_sprites.sprites():
+            if pygame.sprite.spritecollide(enemy,self.constraint_sprites,False):
+                enemy.reverse()
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -68,8 +64,16 @@ class Level:
                         sprite = AnimatedTile(tile_size,x,y,"assets/coin")
                   
                     if type == 'enemies':
-                        sprite = AnimatedTile(tile_size,x,y,"assets/enemies/mushroom/idle")
+                        sprite = Enemy(tile_size,x,y,"assets/enemies/mushroom/idle")
+
+                    if type == 'decorations':
+                        # decoration_tile_list = import_cut_graphics('') will not work because the tileset is made up of a group of images
+                        sprite = Fences(tile_size,x,y)
                         
+                    if type == 'constraints':
+                        print("constraint loaded")
+                        sprite = Tile(tile_size,x,y)    
+                    
                     sprite_group.add(sprite)
                     
                 elif int(val) > 315:
@@ -84,13 +88,12 @@ class Level:
                 y = col_index * tile_size
                 x = row_index * tile_size
                 if val == '7':
-                    print('player goes here')
                     sprite = Player((x,y), self.display_surface)
                     self.player.add(sprite)
                 if val == '8': 
-                    print('finish line goes here')
                     flag_surface = pygame.image.load('assets/start_end/flag.png').convert_alpha
                     sprite = StaticTile(tile_size,x,y,flag_surface)
+                    self.flag.add(sprite)
 
     def scroll_x(self):
         player = self.player.sprite
@@ -156,14 +159,24 @@ class Level:
         self.coin_sprites.update(self.world_shift)
         self.coin_sprites.draw(self.display_surface)
 
+        # decorations
+        # self.decoration_sprites.update(self.world_shift)
+        # self.decoration_sprites.draw(self.display_surface)
+
         # enemies
         self.enemy_sprites.update(self.world_shift)
+        self.constraint_sprites.update(self.world_shift)
+        self.enemy_collision_reverse()
         self.enemy_sprites.draw(self.display_surface)
-        
+
         # player mechanics WIP
         self.scroll_x()
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
+
+        # self.flag.update(self.world_shift)
+        # self.flag.draw(self.display_surface)
+        
         self.player.update()
         self.player.draw(self.display_surface)
 

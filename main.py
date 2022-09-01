@@ -18,7 +18,7 @@ def title_screen():
        
         menu_mouse_pos = pygame.mouse.get_pos()
 
-        menu_text = main_font.render("Title of Game", True, "Black")
+        menu_text = main_font.render("The Most Epic Game", True, "Black")
         menu_rect = menu_text.get_rect(center=(screen_length // 2, 100))
 
         play_button = Button(image=pygame.image.load('assets/button.png'),

@@ -1,9 +1,4 @@
 Todo ASAP:
+add win mechanic (flag)
 make coins collectible
-add win mechanic
-add enemies 
-
-With Time
-add lose mechanic
-add background
-level 2 (challenge)
+add death (fall off map or touch enemy)
