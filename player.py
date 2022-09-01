@@ -1,7 +1,7 @@
 import pygame
 from os import *
 from settings import screen_height
-# from main import first_level
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface):
@@ -26,7 +26,8 @@ class Player(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
-   
+        self.dead = False
+        
     def import_folder(self, path):
         animation_list = []
 
@@ -85,7 +86,13 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = self.jump_height
 
     def get_status(self):
-        if self.direction.y < 0:
+        if self.rect.y > screen_height:
+            self.dead = True
+            print("You are Dead!, Start Over to Play Again.")  
+            pygame.quit()
+            exit() 
+
+        elif self.direction.y < 0:
             self.status = 'jump'
         elif self.direction.y > 1:
             self.status = 'jump' # currently do not have an animation for falling
@@ -94,12 +101,11 @@ class Player(pygame.sprite.Sprite):
                 self.status = 'running'
             else:
                 self.status = 'idle'
-
-    # def lose(self):
-    #     if self.rect.y > screen_height:
-    #         first_level = False
-    #     else:
-    #         pass
+        
+    
+        # if self.rect.x == self.flag.x:
+        #     print("You Have Won!")
+        
 
     def get_input(self):
 
@@ -117,15 +123,19 @@ class Player(pygame.sprite.Sprite):
             
             if keys[pygame.K_w] and self.on_ground:
                 self.jump()
+
+            if keys[pygame.K_r] and self.dead == True:
+                print("Restarting...")
+                    
             # if event.type == pygame.KEYDOWN: 
-            #     if event.key == pygame.K_w:
+            #     if event.key == pygame.K_w:rrrr
             #         self.jump()
+            
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
                     
-    def update(self):
-        # self.lose() 
+    def update(self): 
         self.get_input()
         self.get_status()
         self.animate()

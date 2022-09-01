@@ -1,4 +1,1 @@
-import gc
-
-
-gc
+print

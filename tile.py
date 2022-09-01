@@ -62,7 +62,7 @@ class Enemy(AnimatedTile):
 
 class Fences(StaticTile):
     def __init__(self,size,x,y):
-        super().__init__(size,x,y,pygame.image.load('assets/backgrounds/oak_woods_v1.0/decorations/fence_1.png'))
+        super().__init__(size,x,y,pygame.image.load('assets/backgrounds/oak_woods_v1.0/decorations/fence_1.png').convert_alpha())
         y_offset = y + size/1.5
         self.rect = self.image.get_rect(topleft = (x,y_offset))
 

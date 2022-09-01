@@ -1,4 +1,4 @@
 Todo ASAP:
-add win mechanic (flag)
+add win mechanic (flag was never appearing)
 make coins collectible
-add death (fall off map or touch enemy)
+add death when touching an enemy)

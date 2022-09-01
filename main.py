@@ -5,6 +5,7 @@ from button import *
 from tile import *
 from game_data import level_1
 from level import Level
+from player import Player
 
 pygame.init()
 
@@ -88,6 +89,7 @@ def title_screen():
         pygame.display.update()
 
 def load_level1():
+    first_level = False
     running = True
     while running:
         clock.tick(FPS)
@@ -121,6 +123,7 @@ def load_level1():
         pygame.display.update()
 
 def play_level1():
+    global first_level 
     first_level = True
     while first_level:
         clock.tick(FPS)
@@ -128,11 +131,12 @@ def play_level1():
         screen.fill("Grey")
 
         level.run()
-       
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            
 
         pygame.display.update()
     

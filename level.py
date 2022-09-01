@@ -71,7 +71,6 @@ class Level:
                         sprite = Fences(tile_size,x,y)
                         
                     if type == 'constraints':
-                        print("constraint loaded")
                         sprite = Tile(tile_size,x,y)    
                     
                     sprite_group.add(sprite)
@@ -91,7 +90,7 @@ class Level:
                     sprite = Player((x,y), self.display_surface)
                     self.player.add(sprite)
                 if val == '8': 
-                    flag_surface = pygame.image.load('assets/start_end/flag.png').convert_alpha
+                    flag_surface = pygame.image.load('assets/start_end/flag.png').convert_alpha()
                     sprite = StaticTile(tile_size,x,y,flag_surface)
                     self.flag.add(sprite)
 
@@ -149,6 +148,12 @@ class Level:
             player.on_ground = False  
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False 
+
+    # def player_death(self):
+    #     self.player.update()
+    #     if self.dead == True:
+    #         first_level = False
+
     def run(self):
 
         # level tiling
@@ -174,9 +179,10 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
 
-        # self.flag.update(self.world_shift)
-        # self.flag.draw(self.display_surface)
+       
         
         self.player.update()
         self.player.draw(self.display_surface)
 
+        self.flag.update(self.world_shift)
+        self.flag.draw(self.display_surface)
