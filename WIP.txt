@@ -1,8 +1,9 @@
-Todo:
-instead of coins have ameegus collectibles
+Todo ASAP:
+make coins collectible
 add win mechanic
 add enemies 
-add background
-add lose mechanic
 
+With Time
+add lose mechanic
+add background
 level 2 (challenge)

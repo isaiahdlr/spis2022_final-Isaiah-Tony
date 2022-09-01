@@ -3,6 +3,7 @@ from tile import *
 from settings import tile_size, screen_length
 from player import Player
 from helpers import import_csv_layout, import_cut_graphics
+import os
 
 class Level:
     def __init__(self, level_data, surface):
@@ -25,6 +26,8 @@ class Level:
         flag = pygame.Rect(flag_x, flag_y, flag_width, flag_height)
         
        
+            
+       
         flag_sprite = pygame.image.load(os.path.join("assets", "flag.png")).convert()
         flag_sprite = pygame.transfrom.scale(flag_sprite, flag_dimensions)
 
@@ -41,7 +44,10 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
-            
+    
+    def player_win(self):
+        win_condition = self.player.colliderect(flag)
+        if win_condition > 0:   
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()

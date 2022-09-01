@@ -138,6 +138,4 @@ def play_level1():
     
     # lose_level1()
 
-
-     
 title_screen()

@@ -1,1 +1,4 @@
-g
+import gc
+
+
+gc

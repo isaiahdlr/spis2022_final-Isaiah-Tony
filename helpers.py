@@ -13,7 +13,7 @@ def import_folder(path):
             image_surface = pygame.image.load(fuller_path).convert_alpha()
             # image_surface = pygame.transform.scale(image_surface, (96,96))
             animation_list.append(image_surface)
-                            
+    print(animation_list)                            
     return animation_list  
 
 
